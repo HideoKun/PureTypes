@@ -9,7 +9,7 @@ TODO: ?
 - fix with PTA, compute Validate$ errors with context
 */
 
-export type $Catch<T, Context extends string = "$Catch"> = [
+export type Catch<T, Context extends string = "$Catch"> = [
   Validate$<T, "flat">,
 ] extends [never]
   ? T

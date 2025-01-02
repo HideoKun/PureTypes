@@ -5,6 +5,6 @@ export type _StrToArr<
   ? _StrToArr<Rest, [...Acc, First]>
   : Acc;
 
-export type _StrToArr_Back<Str> = Str extends string
+export type _StrToArr_Back$<Str> = Str extends string
   ? _StrToArr<Str, []>
   : never;

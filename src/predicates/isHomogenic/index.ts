@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import type { $Wide, ALL_TYPES } from "../../types";
+import type { _Wide$, ALL_TYPES } from "../../types";
 import type { IsEqual } from "../isEqual";
 
 // TODO: this is broken, isHomogenic vs isWideHomogenic
@@ -10,9 +10,9 @@ import type { IsEqual } from "../isEqual";
 */
 
 export type IsHomogenic<All, T> =
-  All extends $Wide<T> // 'a'
+  All extends _Wide$<T> // 'a'
     ? // TODO: add Wider<T> for boolean -> true | false, so conditional type dist can be removed
-      IsEqual<All, $Wide<T>>
+      IsEqual<All, _Wide$<T>>
     : never;
 
 type X = IsHomogenic<string | number, string>;
@@ -27,6 +27,6 @@ type Z = IsEqual<string | number | boolean, "string" | "number">;
 type XBT = IsHomogenic<string | number | boolean, boolean>;
 //   ^?
 
-type Y = $Wide<true>;
+type Y = _Wide$<true>;
 type XX = IsHomogenic<string | number, Exclude<ALL_TYPES, string>>;
 //   ^?

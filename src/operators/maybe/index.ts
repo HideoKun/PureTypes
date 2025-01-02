@@ -1,1 +1,1 @@
-export type $Maybe<T> = T | undefined;
+export type _Maybe<T> = T | undefined;

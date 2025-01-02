@@ -5,7 +5,7 @@
  * @template B - The second type to compare.
  */
 
-export type $As<A, B> = [A] extends [B] ? ([B] extends [A] ? B : A) : A;
+export type _As<A, B> = [A] extends [B] ? ([B] extends [A] ? B : A) : A;
 
 // TESTS
 
@@ -23,5 +23,5 @@ type ReplacementType = {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-type TestUpdatedReference = $As<ABC, ReplacementType>;
+type TestUpdatedReference = _As<ABC, ReplacementType>;
 //   ^?

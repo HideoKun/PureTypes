@@ -1,11 +1,11 @@
 import { expectTypeOf, it } from "vitest";
-import type { $Maybe } from ".";
+import type { _Maybe } from ".";
 
-const str: $Maybe<string> = "hello";
+const str: _Maybe<string> = "hello";
 
 it("should work", () => {
   expectTypeOf(str).toEqualTypeOf<string>();
-  expectTypeOf(str).toMatchTypeOf<$Maybe<string>>();
+  expectTypeOf(str).toMatchTypeOf<_Maybe<string>>();
 
   // assertType(mount({ name: 42 }))
 });

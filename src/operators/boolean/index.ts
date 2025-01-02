@@ -22,9 +22,6 @@
 + MUX!!! or only mux implantation
 + DEMUX!!! or only demux implantation
 
-- how to name operators: AND vs And vs $AND
-
-
 */
 
 // Type-level representation of boolean values

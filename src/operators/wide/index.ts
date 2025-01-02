@@ -12,7 +12,7 @@
  */
 
 // TODO: what about open type?
-export type $Wide<T> =
+export type _Wide$<T> =
   // PRIMITIVES
   T extends string
     ? string
@@ -26,23 +26,23 @@ export type $Wide<T> =
             ? undefined
             : // OBJECTS
               T extends (infer A)[]
-              ? $Wide<A>
+              ? _Wide$<A>
               : T extends object
                 ? object
                 : never;
 
 // TODO: TESTS
-type a = $Wide<"a">;
+type a = _Wide$<"a">;
 //   ^?
-type b = $Wide<0>;
+type b = _Wide$<0>;
 //   ^?
-type c = $Wide<true>;
+type c = _Wide$<true>;
 //   ^?
-type d = $Wide<{ a: 1 }>; // TODO: fix, keep object, resolve value to Wide<Values>
+type d = _Wide$<{ a: 1 }>; // TODO: fix, keep object, resolve value to Wide<Values>
 //   ^?
-type e = $Wide<string[]>;
+type e = _Wide$<string[]>;
 //   ^?
-type f = $Wide<Array<string[]>>;
+type f = _Wide$<Array<string[]>>;
 //   ^?
 
 // TODO: support other types

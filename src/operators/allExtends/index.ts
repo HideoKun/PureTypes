@@ -12,22 +12,23 @@ type _AllExtends<
 > = Data extends [infer First, ...infer Rest]
   ? _AllExtends<Rest, Match, Mode, [...Acc, _Extends<First, Match, Mode>]>
   : IsTrueArr<Acc> extends true
-    ? // TODO: collect errors here
+    ? // TODO: collect errors here, switch true[] to error[]
       true
     : false;
 
-export type Try<
+type _Try<
   Err$,
   Data extends unknown[],
   Match,
   Mode extends EX_MODES = "BOX",
 > = [Err$] extends [never] ? _AllExtends<Data, Match, Mode, []> : Err$;
 
+// TODO: join this func with extends -> T | T[]
 export type AllExtends<
   Data extends unknown[],
   Match,
   Mode extends EX_MODES = "BOX",
-> = Try<
+> = _Try<
   ValidateAll$<[Data, Match, Mode]>,
   //
   Data,

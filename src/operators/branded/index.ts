@@ -8,6 +8,3 @@ type $Brand<B> = { [__brand]: B };
 export type Branded<T, B extends string> = [IsOpenType<T>] extends [true]
   ? NewError<"OpenTypeError", "Validate", T>
   : T & $Brand<B>;
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-type x = Branded<"issue", Uppercase<string>>;

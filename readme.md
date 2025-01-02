@@ -120,6 +120,48 @@ module/
 
 ### Code
 
+#### Static Types
+
+```ts
+type BOOL
+// TODO: what about func args?
+```
+
+#### Throwable Type Functions (safe/ unsafe)
+
+level of validation should be depented on usage
+so, front validation is somehow OPTIONAL!!!
+
+- union approach is missing -> BOX, CTD
+
+```ts
+type ReverseString // throwable, front validation
+type ReverseString_Back // throwable, back validation
+```
+
+#### Non-Throwable Type Functions
+
+```ts
+type _ReverseString // non-throwable, front validation
+type _ReverseString_Back // non-throwable, back validation
+```
+
+#### Returning `never` from func
+
+```ts
+type Func$ // $ - possibly returns never exclusively
+
+type _ReturnNever$ //  non-throwable, might returns never, possible front validation
+type _ReverseString_Back // back validation, non-throwable,  might returns never
+```
+
+### Other
+
+- ignore performance, praise readability!!!
+- always use Safe/Close front func wrapper (ex `Func<'x'>`) and UnSafe/Open main func (ex `Func<T, '', []>`) -> Partial Type Application
+- when logic is messy extract it to new named func, avoid [this](https://github.com/sindresorhus/type-fest/blob/main/source/paths.d.ts#L123)
+- if there is to many args in one func, try to use props object to
+
 Bad - non meaningful type names
 
 ```ts
@@ -136,15 +178,6 @@ type Test<
   Match extends string
 >
 ```
-
-- $Operator, Func, \_UnSafeFunc
-- ignore performance, praise readability!!!
-- always describe generic type args (T extends string)
-- always use Safe/Close front func wrapper (ex `Func<'x'>`) and UnSafe/Open main func (ex `Func<T, '', []>`) -> Partial Type Application
-- when logic is messy extract it to new named func, avoid [this](https://github.com/sindresorhus/type-fest/blob/main/source/paths.d.ts#L123)
-- when both logic branches are invoking same func compress them to one func helpers for picking arg values
-- if there is to many args in one func, try to use props object to
--
 
 ### Files
 
