@@ -10,4 +10,7 @@ export type GetStringLength<Str extends string> = _Try<
   ValidateUsableSting$<Str>,
   Str
 >
-export type GetStringLength_BACK$<Str> = _Try<ValidateUsableSting$<Str>, Str>
+export type GetStringLength_BACK$<Str> = _Try<
+  ValidateUsableSting$<Str>,
+  Str
+>

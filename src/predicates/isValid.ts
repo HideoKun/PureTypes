@@ -1,8 +1,8 @@
-import type { IsOpenType } from "./is";
-import type { IsError } from "./isError";
+import type { IsOpenType } from "./is"
+import type { IsError_ } from "./isError"
 
 export type IsValid<T> = [IsOpenType<T>] extends [true]
   ? false
-  : [IsError<T>] extends [true]
+  : [IsError_<T>] extends [true]
     ? false
-    : true;
+    : true
