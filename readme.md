@@ -48,11 +48,18 @@
 - recurrence as snippet/ pattern
 - type function composition
 
+#### Snippets
+
+- assertion
+- validator
+- recurrence
+
 ### Structure/ Convention
 
 - Standard: Progressive Type Application (PTA): close pattern (no default values), open pattern (default values)
 - Standard: name: safe/ guard/ check vs safe/ front/ back (flag or func name?)
 - Standard: name/mode: CTD, BOX
+- Standard: singleton? `[Mode] extends ["BOX"]`
 
 #### Directories
 

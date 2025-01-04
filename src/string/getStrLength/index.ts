@@ -1,5 +1,5 @@
 import type { Catch } from "../../operators/catch";
-import type { _ValidateUsableSting$ } from "../../validators/validateUsableSting";
+import type { ValidateUsableSting$ } from "../../validators/validateUsableSting";
 import type { _GetStringLength_Back } from "./algo";
 
 type _Try<Err$, Str> = [Err$] extends [never]
@@ -7,7 +7,7 @@ type _Try<Err$, Str> = [Err$] extends [never]
   : Err$;
 
 export type GetStringLength<Str extends string> = _Try<
-  _ValidateUsableSting$<Str>,
+  ValidateUsableSting$<Str>,
   Str
 >;
-export type GetStringLength_BACK$<Str> = _Try<_ValidateUsableSting$<Str>, Str>;
+export type GetStringLength_BACK$<Str> = _Try<ValidateUsableSting$<Str>, Str>;
