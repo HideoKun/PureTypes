@@ -1,7 +1,6 @@
-import type { NewError } from "../../types/errors";
+import type { NewError } from "../../types/errors"
 
 // TODO: add context to errors
-// chainable
 export type Validate$<T$, IsChainable extends "chain" | "flat" = "chain"> = [
   T$,
 ] extends [never] // isNever
@@ -12,4 +11,6 @@ export type Validate$<T$, IsChainable extends "chain" | "flat" = "chain"> = [
       ? NewError<"UnknownError", "Validate", T$>
       : IsChainable extends "chain"
         ? T$
-        : never;
+        : never
+
+export type ChainValidate<T$> = Validate$<T$, "chain">

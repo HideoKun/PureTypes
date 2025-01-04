@@ -1,25 +1,31 @@
-import type { ValidateAll$ } from "../../validators/validateAll";
-import type { ERROR, PRED_MODE } from "./config";
-import type { Catch$ } from "./utils";
+import type { Catch } from "../../operators/catch"
+import type { ChainValidate } from "../../validators/validate"
+import type { ValidateType$ } from "../../validators/validateType"
+import type { IsOpenType } from "../is"
+import type { BOOL, PRED_MODE } from "./config"
 
-export type _Predicate<T, Match, Mode extends PRED_MODE = ERROR> = [T] extends [
-  Match,
-]
-  ? true
-  : Mode extends ERROR
-    ? Catch$<T, Match> // never: reachable, but not single
-    : false;
+// TODO: chain validate ALL!
+type TryPredicate$<T, Match> = ValidateType$<ChainValidate<T>, Match>
 
-type _Try<E, T, Match, Mode extends PRED_MODE = ERROR> = [E] extends [never]
-  ? _Predicate<T, Match, Mode>
-  : E;
+export type Predicate<T, Match, MODE extends PRED_MODE> = [MODE] extends [BOOL]
+  ? IsOpenType<TryPredicate$<T, Match>>
+  : Catch<TryPredicate$<T, Match>> // context !!!
 
-// ------------------------------------------------
+// ----------------------------------------------
 
-export type Predicate<T, Match, Mode extends PRED_MODE = ERROR> = _Try<
-  ValidateAll$<[T, Match, Mode]>,
-  //
+export type IsString<T, MODE extends PRED_MODE = BOOL> = Predicate<
   T,
-  Match,
-  Mode
->;
+  string,
+  MODE
+>
+export type IsNumber<T, MODE extends PRED_MODE = BOOL> = Predicate<
+  T,
+  number,
+  MODE
+>
+
+export type IsBoolean<T, MODE extends PRED_MODE = BOOL> = Predicate<
+  T,
+  boolean,
+  MODE
+>
