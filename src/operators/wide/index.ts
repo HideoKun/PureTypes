@@ -1,15 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-function-type */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-
-// TODO: add class support
-// TODO: add symbol support
-
-/**
- *
- * - wide
- * - deep wide?
- *
- * apply widening to a type
- */
 
 // TODO: what about open type?
 export type _Wide$<T> =
@@ -26,10 +17,12 @@ export type _Wide$<T> =
             ? undefined
             : // OBJECTS
               T extends (infer A)[]
-              ? _Wide$<A>
-              : T extends object
-                ? object
-                : never;
+              ? any[]
+              : T extends Function
+                ? Function
+                : T extends object
+                  ? object
+                  : never;
 
 // TODO: TESTS
 type a = _Wide$<"a">;
@@ -44,22 +37,5 @@ type e = _Wide$<string[]>;
 //   ^?
 type f = _Wide$<Array<string[]>>;
 //   ^?
-
-// TODO: support other types
-// type f = Wide<never>
-// type g = Wide<unknown>
-// type h = Wide<null>
-// type i = Wide<undefined>
-// type j = Wide<symbol>
-// type k = Wide<Function>
-// type l = Wide<Zero>
-// type m = Wide<bigint>
-// type n = Wide<Error>
-// type o = Wide<RegExp>
-// type p = Wide<Function>
-// type q = Wide<Promise<any>>
-// type r = Wide<Generator>
-// type s = Wide<GeneratorFunction>
-// type t = Wide<AsyncGenerator>
-// type u = Wide<AsyncGeneratorFunction>
-// type v = Wide<AsyncFunction>
+type g = _Wide$<() => "x">;
+//   ^?

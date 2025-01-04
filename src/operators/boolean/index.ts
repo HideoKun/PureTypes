@@ -29,17 +29,14 @@
 export type $T<> = true;
 export type $F<> = false;
 
-// NOT operation
-type $Not$<T extends boolean> = T extends true ? false : true;
+export type _Not<T extends boolean> = T extends true ? false : true;
 
-// AND operation
 export type $And$<A extends boolean, B extends boolean> = [A] extends [true]
   ? [B] extends [true]
     ? true
     : false
   : false;
 
-// OR operation
 type $Or$<A extends boolean, B extends boolean> = A extends true
   ? true
   : B extends true
@@ -50,14 +47,14 @@ type $Or$<A extends boolean, B extends boolean> = A extends true
 type Xor<A extends boolean, B extends boolean> = A extends B ? false : true;
 
 // NAND (Not AND) operation
-type Nand<A extends boolean, B extends boolean> = $Not$<$And$<A, B>>;
+type Nand<A extends boolean, B extends boolean> = _Not<$And$<A, B>>;
 
 // NOR (Not OR) operation
-type Nor<A extends boolean, B extends boolean> = $Not$<$Or$<A, B>>;
+type Nor<A extends boolean, B extends boolean> = _Not<$Or$<A, B>>;
 
 // Demonstration of usage - add truth tables for each operator
-type TestNot1 = $Not$<true>; // false
-type TestNot2 = $Not$<false>; // true
+type TestNot1 = _Not<true>; // false
+type TestNot2 = _Not<false>; // true
 
 type TestAnd1 = $And$<true, true>; // true
 type TestAnd2 = $And$<true, false>; // false
