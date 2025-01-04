@@ -1,8 +1,23 @@
-import type { _FilterError$ } from "../../filters";
-import type { Validate$ } from "../validate";
-import type { _ValidateEmptyString$ } from "../validateEmtpyString";
-import type { ValidateStringLiteral } from "../validateLiteral";
+import type { FilterError$ } from "../../filters"
+import type { CH_Validate } from "../validate"
+import type { CH_ValidateEmptyString$ } from "../validateEmtpyString"
+import type { CH_ValidateStringLiteral } from "../validateLiteral"
 
-export type ValidateUsableSting$<T> = _FilterError$<
-  _ValidateEmptyString$<ValidateStringLiteral<Validate$<T>>>
->;
+type Check<T> = CH_ValidateEmptyString$<
+  CH_ValidateStringLiteral<
+    //
+    CH_Validate<T>
+  >
+>
+
+/**
+ * @returns Error | never
+ */
+export type ValidateUsableSting$<T> = FilterError$<Check<T>>
+
+/**
+ * @returns Error | T
+ */
+export type CH_ValidateUsableSting$<T> = FilterError$<
+  Check<T>
+>

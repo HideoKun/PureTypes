@@ -50,6 +50,7 @@ export type NewError<
   __value: Value & {} // TODO: pretty
 }
 
+// TODO: remove
 export type GENERIC_ERROR = {
   __type: keyof _Errors
   __message?: _Errors[keyof _Errors]["msg"]
