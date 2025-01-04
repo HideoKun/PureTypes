@@ -5,5 +5,5 @@ export type ValidateAll$<Data extends unknown[], Acc = never> = Data extends [
   infer First,
   ...infer Rest,
 ]
-  ? ValidateAll$<Rest, Acc | Validate$<First, "flat">>
+  ? ValidateAll$<Rest, Acc | Validate$<First>>
   : FilterError$<Acc>

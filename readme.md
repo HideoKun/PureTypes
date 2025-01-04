@@ -13,6 +13,7 @@
 <p align="center">
   <img src="logo.svg" width="200px" align="center" alt="Pure Types Logo" />
   <h1 align="center">PureTypes</h1>
+  <h2>Lodash for Types</h2>
 </p>
 
 ## Goals
