@@ -3,12 +3,13 @@ import type { CH_Validate } from "../validate"
 import type { CH_ValidateEmptyString$ } from "../validateEmtpyString"
 import type { CH_ValidateStringLiteral } from "../validateLiteral"
 
-type Check<T> = CH_ValidateEmptyString$<
-  CH_ValidateStringLiteral<
-    //
-    CH_Validate<T>
+// prettier-ignore
+type Check<T> =
+  CH_ValidateEmptyString$<
+    CH_ValidateStringLiteral<
+      CH_Validate<T>
+    >
   >
->
 
 /**
  * @returns Error | never

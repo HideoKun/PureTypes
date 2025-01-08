@@ -1,8 +1,8 @@
-import pluginJs from "@eslint/js";
-import eslintConfigPrettier from "eslint-config-prettier";
-import globals from "globals";
-import path from "path";
-import tseslint from "typescript-eslint";
+import pluginJs from "@eslint/js"
+import eslintConfigPrettier from "eslint-config-prettier"
+import globals from "globals"
+import path from "path"
+import tseslint from "typescript-eslint"
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -30,6 +30,12 @@ export default [
       // "@typescript-eslint/no-unused-vars": ["error", { "args": "none", "varsIgnorePattern": "^_" }],
       // "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/ban-ts-comment": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          varsIgnorePattern: "^_",
+        },
+      ],
     },
   },
-];
+]

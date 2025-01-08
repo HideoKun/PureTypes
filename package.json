@@ -6,6 +6,7 @@
   "scripts": {
     "lint": "npm run lint:ts && npm run lint:es && npm run lint:pr",
     "lint:ts": "tsc --noEmit",
+    "build:ts": "tsc",
     "lint:es": "eslint ./src",
     "lint:pr": "prettier --check .",
     "test": "vitest --config ./vitest.config.ts",
@@ -21,7 +22,7 @@
     ]
   },
   "dependencies": {
-    "typescript": "^5.6.3"
+    "typescript": "^5.7.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.16.0",
