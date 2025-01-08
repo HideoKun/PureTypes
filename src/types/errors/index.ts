@@ -59,4 +59,22 @@ export type GENERIC_ERROR = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   __value?: any
 }
-export type NonErrorObj = object & { __message: never; __url: never } // type: GenericError
+export type NonErrorObj = object & {
+  __message: never
+  __url: never
+} // type: GenericError
+
+// -----------------------
+
+// prettier-ignore
+export type NeverError<Context extends string, Value> = NewError<"NeverError", Context, Value>
+// prettier-ignore
+export type AnyError<Context extends string, Value> = NewError<"AnyError", Context, Value>
+// prettier-ignore
+export type UnknownError<Context extends string, Value> = NewError<"UnknownError", Context, Value>
+// prettier-ignore
+export type MismatchError<Context extends string, Value> = NewError<"MismatchError", Context, Value>
+// prettier-ignore
+export type NonLiteralError<Context extends string, Value> = NewError<"NonLiteralError", Context, Value>
+// prettier-ignore
+export type EmptyStringError<Context extends string, Value> = NewError<"EmptyStringError", Context, Value>

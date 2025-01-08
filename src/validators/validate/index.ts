@@ -1,27 +1,41 @@
-import type { NewError } from "../../types/errors"
+import type {
+  AnyError,
+  NeverError,
+  UnknownError,
+} from "@errors"
+import type { Trace } from "@operators"
+import type { IsError_ } from "@predicates"
 
 export type VALIDATOR_MODES = "flat" | "chain"
 
-// TODO: add context to errors
-type LocValidate$<
+type Name = "_Validate$"
+
+type _Validate$<
   T$,
   IsChainable extends VALIDATOR_MODES,
-> = [T$] extends [never] // isNever
-  ? NewError<"NeverError", "Validate", T$>
-  : 0 extends 1 & T$ // isAny
-    ? NewError<"AnyError", "Validate", T$>
-    : [unknown] extends [T$] // isUnknown
-      ? NewError<"UnknownError", "Validate", T$>
+  CX extends string = "",
+> = [T$] extends [never]
+  ? NeverError<Trace<CX, Name>, T$>
+  : 0 extends 1 & T$
+    ? AnyError<Trace<CX, Name>, T$>
+    : [unknown] extends [T$]
+      ? UnknownError<Trace<CX, Name>, T$>
       : IsChainable extends "chain"
         ? T$
-        : never
+        : IsError_<T$> extends true
+          ? T$
+          : never
 
 /**
  * @returns Error | never
  */
-export type Validate$<T> = LocValidate$<T, "flat">
+export type Validate$<
+  T,
+  CX extends string = "",
+> = _Validate$<T, "flat", CX>
 
 /**
  * @returns Error | T
  */
-export type CH_Validate<T> = LocValidate$<T, "chain">
+export type CH_Validate<T> = _Validate$<T, "chain">
+// TODO: fix context for validation (func index, just - to curry context)
