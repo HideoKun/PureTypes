@@ -1,5 +1,5 @@
+import type { IsStringLiteral } from "../../predicates/isLiteral";
 import type { WHITE_SPACE } from "../../types";
-import type { IsStringLiteral } from "../isStringLiteral";
 
 /**
  * A type that removes all leading occurrences of characters specified by `Space` from the string literal type `S`.
@@ -14,11 +14,9 @@ import type { IsStringLiteral } from "../isStringLiteral";
  * type CheckTrimStart = TrimStart<"  Hello World  ">; // Result: "Hello World  "
  */
 
-export type TrimStart<
-  S extends string,
-  Space extends string = WHITE_SPACE
-> = IsStringLiteral<S> extends never
-  ? never
-  : S extends `${Space}${infer U}`
-    ? TrimStart<U>
-    : S;
+export type TrimStart<S extends string, Space extends string = WHITE_SPACE> =
+  IsStringLiteral<S> extends never
+    ? never
+    : S extends `${Space}${infer U}`
+      ? TrimStart<U>
+      : S;

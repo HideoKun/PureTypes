@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "lint": "npm run lint:ts && npm run lint:es && npm run lint:pr",
     "lint:ts": "tsc --noEmit",
     "lint:es": "eslint ./src",
+    "lint:pr": "prettier --check .",
     "test": "vitest --config ./vitest.config.ts",
     "coverage:upload": "codecov -f coverage/lcov.info",
     "prepare": "husky install"

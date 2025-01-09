@@ -1,5 +1,5 @@
+import type { IsStringLiteral } from "../../predicates/isLiteral";
 import type { WHITE_SPACE } from "../../types/string";
-import type { IsStringLiteral } from "../isStringLiteral";
 import type { TrimEnd } from "../trimEnd";
 import type { TrimStart } from "../trimStart";
 
@@ -15,9 +15,7 @@ import type { TrimStart } from "../trimStart";
  * @example
  * type CheckTrim = Trim<"  Hello World  ">; // Result: "Hello World"
  */
-export type Trim<
-  S extends string,
-  Space extends string = WHITE_SPACE
-> = IsStringLiteral<S> extends never
-  ? never
-  : TrimStart<TrimEnd<S, Space>, Space>;
+export type Trim<S extends string, Space extends string = WHITE_SPACE> =
+  IsStringLiteral<S> extends never
+    ? never
+    : TrimStart<TrimEnd<S, Space>, Space>;

@@ -1,4 +1,4 @@
-import type { IsStringLiteral } from "../isStringLiteral";
+import type { IsStringLiteral } from "../../predicates/isLiteral";
 
 /**
  * A type that checks if the string literal type `S` starts with the string literal type `T`.
@@ -7,9 +7,9 @@ import type { IsStringLiteral } from "../isStringLiteral";
  * If either `S` or `T` is not a string literal type, it returns `never`.
  * Type StartsWith is case sensitive.
  *
- * @template S - The string literal type to check.
- * @template T - The prefix string literal type to match.
- * @returns {T | never} - Returns `T` if `S` starts with `T`, otherwise `never`.
+ * @template Str - The string literal type to check.
+ * @template Match - The prefix string literal type to match.
+ * @returns {Match | never} - Returns `T` if `S` starts with `T`, otherwise `never`.
  *                        Returns `never` if `S` or `T` is not a string literal type.
  *
  * @example
@@ -18,10 +18,10 @@ import type { IsStringLiteral } from "../isStringLiteral";
  */
 
 // TODO: case insensitive flag?
-export type StartsWith<S extends string, T extends string> = IsStringLiteral<S> extends never
-  ? never
-  : IsStringLiteral<T> extends never
-  ? never
-  : S extends `${T}${infer Rest}`
-  ? T
-  : never;
+export type StartsWith<Str extends string, Match extends string> =
+  IsStringLiteral<Match> extends never
+    ? never
+    : // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      Str extends `${Match}${infer Rest}`
+      ? Match
+      : never;
