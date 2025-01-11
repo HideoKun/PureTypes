@@ -1,4 +1,4 @@
-import type TX from "@operators"
+import type { TX } from "@operators"
 import type { EitherValidate } from "../../validators/validate"
 import type { ValidateType$ } from "../../validators/validateType"
 import type { IsOpenType } from "../is"
