@@ -9,7 +9,7 @@ type _ValidateType<
   T,
   Match,
 > = [T] extends [Match]
-  ? Mode extends "chain"
+  ? Mode extends "either"
     ? T
     : never
   : NewError<
@@ -37,7 +37,7 @@ export type ValidateType$<
   Match,
 > = SafeChain<
   CX,
-  "flat",
+  "never",
   FilterError$<T$>,
   T$,
   Match
@@ -49,7 +49,7 @@ export type ValidateType$<
 export type EitherValidate_Type$<T$, Match> =
   SafeChain<
     "CX",
-    "chain",
+    "either",
     FilterError$<T$>,
     T$,
     Match

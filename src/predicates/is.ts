@@ -1,15 +1,19 @@
-import type { NewError, NIL } from "../types"
+import type { NIL } from "../types"
 
-export type $IsNever<T> = [T] extends [never] ? true : false
+export type IsNever<T> = [T] extends [never]
+  ? true
+  : false
 
-export type $IsAnyE<T> = [$IsNever<T>] extends [true]
-  ? NewError<"AnyError", "IsAny", T>
+export type IsAny<T> = [IsNever<T>] extends [true]
+  ? false
   : 0 extends 1 & T
     ? true
     : false
 
-export type $IsUnknownE<T> = [$IsNever<T>] extends [true]
-  ? NewError<"UnknownError", "IsUnknown", T>
+export type IsUnknown<T> = [IsNever<T>] extends [
+  true,
+]
+  ? false
   : 0 extends 1 & T
     ? false
     : [unknown] extends [T]
@@ -26,7 +30,7 @@ export type IsOpenType<T> = [T] extends [never] // isNever
 
 export type IsNil<T> =
   IsOpenType<T> extends true
-    ? NewError<"OpenTypeError", "IsNil", T>
+    ? false
     : [T] extends [NIL]
       ? true
       : false

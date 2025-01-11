@@ -1,5 +1,5 @@
-import type { StrictObject } from "../../../types";
-import type { ValueOf } from "../valueOf";
+import type { StrictObject } from "../../../types"
+import type { ValueOfObj } from "../valueOf"
 
 /**
  * Get key by value
@@ -9,7 +9,9 @@ import type { ValueOf } from "../valueOf";
  */
 export type GetKeyByValue<
   O extends StrictObject,
-  V extends ValueOf<O>,
+  V extends ValueOfObj<O>,
 > = keyof {
-  [K in keyof O as O[K] extends V ? K : never]: never; // TODO: rethink
-};
+  [K in keyof O as O[K] extends V
+    ? K
+    : never]: never
+}

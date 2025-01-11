@@ -1,23 +1,31 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import type {
   ConsistentDeepObj,
   ConsistentSimpleObject,
   InConsistentDeepObj,
-} from "../../../../testData";
+} from "@testData"
 
 // TODO: now arr support
-export type DeepValueOfObj<T extends object, Acc = never> = T extends object
+export type DeepValueOfObj<
+  T extends object,
+  Acc = never,
+> = T extends object
   ? {
       [K in keyof T]: T[K] extends object
         ? DeepValueOfObj<T[K], Acc>
-        : Acc | T[K];
+        : Acc | T[K]
     }[keyof T]
-  : never;
+  : never
 
 // TESTS
-type CheckDeepObj = DeepValueOfObj<ConsistentSimpleObject>;
+type CheckDeepObj =
+  DeepValueOfObj<ConsistentSimpleObject>
 //   ^?
-type CheckDeepValueOfA = DeepValueOfObj<ConsistentDeepObj>;
+type CheckDeepValueOfA =
+  DeepValueOfObj<ConsistentDeepObj>
 //   ^?
 // TODO: broken, check d1
-type CheckDeepValueOfB = DeepValueOfObj<InConsistentDeepObj>;
+type CheckDeepValueOfB =
+  DeepValueOfObj<InConsistentDeepObj>
 //   ^?

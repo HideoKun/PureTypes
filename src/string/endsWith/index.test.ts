@@ -1,17 +1,16 @@
-import { expectTypeOf, it } from "vitest";
-import type { EndsWith } from ".";
+import { expectTypeOf, it } from "vitest"
+import type { EndsWith } from "."
 
-type TestStr = "Hello, World!";
-
-type x = EndsWith<TestStr, "World!">
+type TestStr = "Hello, World!"
 
 it("should work for args", () => {
-  expectTypeOf<"World!">().toEqualTypeOf<EndsWith<TestStr, "World!">>();
-});
+  expectTypeOf<"World!">().toEqualTypeOf<
+    EndsWith<TestStr, "World!">
+  >()
+})
 
+// prettier-ignore
 it("should not work for args", () => {
-  // TODO: Fix tests
-
   // @ts-expect-error
   expectTypeOf<"Hello">().toEqualTypeOf<EndsWith<TestStr, "O">>();
   // @ts-expect-error
@@ -23,5 +22,7 @@ it("should not work for args", () => {
 });
 
 it("should return never", () => {
-  expectTypeOf<EndsWith<string, string>>().toBeNever();
-});
+  expectTypeOf<
+    EndsWith<string, string>
+  >().toBeNever()
+})

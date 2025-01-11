@@ -10,8 +10,7 @@ import type { IsError_ } from "@predicates"
 
 type Name = "_Validate$"
 
-// TODO: rename chain to either
-export type VALIDATOR_MODES = "flat" | "chain"
+export type VALIDATOR_MODES = "never" | "either"
 
 type _ValidateAll$<
   Data extends unknown[],
@@ -19,7 +18,7 @@ type _ValidateAll$<
 > = [Data] extends [[infer First, ...infer Rest]]
   ? _ValidateAll$<
       Rest,
-      Acc | _Validate$<First, "flat">
+      Acc | _Validate$<First, "never">
     >
   : Acc
 
@@ -35,7 +34,7 @@ type _Validate$<
       ? UnknownError<TX<CX, Name>, T>
       : [T] extends [any[]]
         ? _ValidateAll$<T>
-        : IsChainable extends "chain"
+        : IsChainable extends "either"
           ? T
           : IsError_<T> extends true
             ? T
@@ -52,7 +51,7 @@ export type Validate$<
 > = _Validate$<
   //
   T,
-  "flat",
+  "never",
   TX<CX, "Validate$">
 >
 
@@ -64,7 +63,7 @@ export type EitherValidate<
   CX extends string = "",
 > = _Validate$<
   T,
-  "chain",
+  "either",
   TX<CX, "EitherValidate">
 >
 // TODO: fix context for validation (func index, just - to curry context)

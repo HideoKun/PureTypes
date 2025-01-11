@@ -9,7 +9,7 @@ type _ValidateEmptyString<
     string = "_ValidateEmptyString",
 > = T extends ""
   ? EmptyStringError<ErrContext, T>
-  : Mode extends "chain"
+  : Mode extends "either"
     ? T
     : never
 
@@ -25,7 +25,7 @@ type SafeChain<
  * @returns Error | never
  */
 export type ValidateEmptyString$<T> = SafeChain<
-  "flat",
+  "never",
   FilterError$<T>,
   T
 >
@@ -34,4 +34,4 @@ export type ValidateEmptyString$<T> = SafeChain<
  * @returns Error | T
  */
 export type EitherValidate_EmptyString$<T> =
-  SafeChain<"chain", FilterError$<T>, T>
+  SafeChain<"either", FilterError$<T>, T>

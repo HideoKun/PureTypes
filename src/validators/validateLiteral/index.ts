@@ -1,6 +1,10 @@
-import type { FilterError$ } from "../../filters"
-import type { NewError } from "../../types/errors"
-import type { VALIDATOR_MODES } from "../validate"
+import type { If$ } from "@core"
+import type {
+  MismatchError,
+  NonLiteralError,
+} from "@errors"
+import type { VALIDATOR_MODES } from "@validators"
+import type { FilterError$ } from "filters"
 
 export type ValidateLiteral$<
   Mode extends VALIDATOR_MODES,
@@ -8,19 +12,9 @@ export type ValidateLiteral$<
   Match,
 > = [T] extends [Match]
   ? [Match] extends [T]
-    ? NewError<
-        "NonLiteralError",
-        "_ValidateLiteral",
-        T
-      >
-    : Mode extends "chain" // TODO: how about Chain$<Mode,T> or Resolve, Return?
-      ? T
-      : never
-  : NewError<
-      "MismatchError",
-      "_ValidateLiteral",
-      T
-    >
+    ? NonLiteralError<"ValidateLiteral$", T>
+    : If$<Mode, "either", T>
+  : MismatchError<"_ValidateLiteral", T>
 
 type SafeChain<
   Mode extends VALIDATOR_MODES,
@@ -43,7 +37,7 @@ type Configure<
  * @returns Error | never
  */
 export type Validate_StringLiteral<T> = Configure<
-  "flat",
+  "never",
   T,
   string
 >
@@ -52,7 +46,7 @@ export type Validate_StringLiteral<T> = Configure<
  * @returns Error | never
  */
 export type Validate_NumberLiteral<T> = Configure<
-  "flat",
+  "never",
   T,
   number
 >
@@ -61,22 +55,22 @@ export type Validate_NumberLiteral<T> = Configure<
  * @returns Error | never
  */
 export type Validate_BooleanLiteral<T> =
-  Configure<"flat", T, boolean>
+  Configure<"never", T, boolean>
 
 /**
  * @returns Error | T
  */
 export type EitherValidate_StringLiteral<T> =
-  Configure<"chain", T, string>
+  Configure<"either", T, string>
 
 /**
  * @returns Error | T
  */
 export type EitherValidate_NumberLiteral<T> =
-  Configure<"chain", T, number>
+  Configure<"either", T, number>
 
 /**
  * @returns Error | T
  */
 export type EitherValidate_BooleanLiteral<T> =
-  Configure<"chain", T, boolean>
+  Configure<"either", T, boolean>

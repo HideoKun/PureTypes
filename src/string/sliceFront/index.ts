@@ -1,5 +1,5 @@
-import type { IsStringLiteral } from "../../predicates/isLiteral";
-import type { NewError } from "../../types";
+import type { NonLiteralError } from "@errors"
+import type { IsStringLiteral } from "../../predicates/isLiteral"
 
 /**
  * A type that slices the front part of a string literal type `Str` based on the length of `LengthPattern`.
@@ -16,13 +16,20 @@ export type _SliceFront<
   Limiter extends number,
   Acc extends string[],
 > = Limiter extends Acc["length"]
-  ? Acc // TODO: arr to string
+  ? Acc
   : Str extends `${infer StrFirst}${infer StrRest}`
-    ? _SliceFront<StrRest, Limiter, [...Acc, StrFirst]>
-    : Acc;
+    ? _SliceFront<
+        StrRest,
+        Limiter,
+        [...Acc, StrFirst]
+      >
+    : Acc
 
 // unions, open type issues
-export type SliceFront<Str extends string, Num extends number> =
+export type SliceFront<
+  Str extends string,
+  Num extends number,
+> =
   IsStringLiteral<Str> extends Str
     ? _SliceFront<Str, Num, []>
-    : NewError<"NonLiteralError", "SliceFront", Str>;
+    : NonLiteralError<"SliceFront", Str>

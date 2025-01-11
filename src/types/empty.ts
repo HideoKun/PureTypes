@@ -1,8 +1,8 @@
-import type { $Exact } from "../operators/exact";
+import type { Exact$ } from "@transformers"
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export type EmptyObj = $Exact<{}>;
-export type EmptyArr = $Exact<[]>;
+export type EmptyObj = Exact$<{}>
+export type EmptyArr = Exact$<[]>
 
 // type EmptyObject = Exact<Record<string, never>>;
 

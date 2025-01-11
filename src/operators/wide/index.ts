@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-// TODO: what about open type?
 export type _Wide$<T> =
   // PRIMITIVES
   T extends string
@@ -22,20 +21,20 @@ export type _Wide$<T> =
                 ? Function
                 : T extends object
                   ? object
-                  : never;
+                  : never
 
-// TODO: TESTS
-type a = _Wide$<"a">;
+// TESTS
+type a = _Wide$<"a">
 //   ^?
-type b = _Wide$<0>;
+type b = _Wide$<0>
 //   ^?
-type c = _Wide$<true>;
+type c = _Wide$<true>
 //   ^?
-type d = _Wide$<{ a: 1 }>; // TODO: fix, keep object, resolve value to Wide<Values>
+type d = _Wide$<{ a: 1 }>
 //   ^?
-type e = _Wide$<string[]>;
+type e = _Wide$<string[]>
 //   ^?
-type f = _Wide$<Array<string[]>>;
+type f = _Wide$<Array<string[]>>
 //   ^?
-type g = _Wide$<() => "x">;
+type g = _Wide$<() => "x">
 //   ^?

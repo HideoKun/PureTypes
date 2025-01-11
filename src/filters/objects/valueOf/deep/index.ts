@@ -1,8 +1,8 @@
-export * from "./deepValueOf";
-export * from "./deepValueOfArr";
-export * from "./deepValueOfObj";
+export * from "./deepValueOf"
+export * from "./deepValueOfArr"
+export * from "./deepValueOfObj"
 
-// TODO: DEEP
+// TODO: today
 // - omit
 // - pick
 // - merge

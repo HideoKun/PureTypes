@@ -1,7 +1,9 @@
 import type { ValidateUsableSting$ } from "../../validators/validateUsableSting"
 import type { _ReverseString_BACK$ } from "./algo"
 
-type Try<Err$, Str> = [Err$] extends [never]
+type SafeChain$<Err$, Str> = [Err$] extends [
+  never,
+]
   ? _ReverseString_BACK$<Str>
   : Err$
 
@@ -13,11 +15,10 @@ type Try<Err$, Str> = [Err$] extends [never]
  * @template Str - The string literal type to reverse.
  * @returns {string} - Returns the reversed string.
  */
-export type ReverseString<Str extends string> = Try<
-  ValidateUsableSting$<Str>,
-  Str
->
-export type ReverseString_Back<Str> = Try<
+export type ReverseString<Str extends string> =
+  SafeChain$<ValidateUsableSting$<Str>, Str>
+
+export type ReverseString_Back<Str> = SafeChain$<
   ValidateUsableSting$<Str>,
   Str
 >

@@ -1,26 +1,24 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import type {
   ConsistentDeepArr,
   ConsistentDeepObj,
   ConsistentSimpleObject,
-} from "../../../testData";
+} from "@testData"
 
-export type ValueOfObj<T extends object> = T[keyof T];
+export type ValueOfObj<T extends object> =
+  T[keyof T]
 
-export type ValueOfArr<T extends any[]> = T[number];
-
-// TODO: readonly?
-export type ValueOf<T extends object | any[]> = T extends any[]
-  ? ValueOfArr<T>
-  : T extends object
-    ? ValueOfObj<T>
-    : never;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ValueOfArr<T extends any[]> =
+  T[number]
 
 // TESTS
-type CheckValueOfA = ValueOf<ConsistentSimpleObject>;
+type CheckValueOfA =
+  ValueOfObj<ConsistentSimpleObject>
 //   ^?
-type CheckValueOfB = ValueOf<ConsistentDeepArr>;
+type CheckValueOfB = ValueOfArr<ConsistentDeepArr>
 //   ^?
-type CheckObj = ValueOf<ConsistentDeepObj>;
+type CheckObj = ValueOfObj<ConsistentDeepObj>
 //   ^?
-type CheckArr1 = ValueOf<ConsistentDeepArr>;
+type CheckArr1 = ValueOfArr<ConsistentDeepArr>
 //     ^?

@@ -1,4 +1,7 @@
-import type { IsOpenType } from "../../predicates/is";
+import type { IsOpenType } from "@predicates"
 
-// TODO: should we add NIL here?
-export type $Else<A, B> = [IsOpenType<A>] extends [true] ? B : A;
+export type $SafeElse<A, B> = [
+  IsOpenType<A>,
+] extends [true]
+  ? B
+  : A
