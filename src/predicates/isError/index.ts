@@ -1,14 +1,26 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { _Extends } from "../../operators/extends"
-import type { GENERIC_ERROR } from "../../types"
+import type {
+  GENERIC_ERROR,
+  NeverError,
+} from "../../types"
 
 // TODO: add modes, and brackets, and possibly open type validation
-export type IsError_<T> = [T] extends [{ [key: string]: any }]
-  ? [_Extends<keyof GENERIC_ERROR, keyof T>] extends [true]
+/**
+ * !!! UNSAFE !!!
+ *
+ * @returns bool
+ */
+export type IsError_<T> = T extends {
+  [key: string]: any
+}
+  ? // ? _Extends<keyof T, keyof GENERIC_ERROR> extends true
+    T extends GENERIC_ERROR
     ? true
     : false
   : false
 
+type NE = NeverError<"ctx", "x">
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-type X = IsError_<never>
+type X = IsError_<NE>
 //   ^?

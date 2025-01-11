@@ -1,10 +1,42 @@
-import type { Catch } from "../../operators/catch"
-import type { Validate$ } from "../../validators/validate"
+import type { TX } from "@operators"
+import type {
+  EitherValidate,
+  Validate$,
+} from "@validators"
 import type { _StrToArr_Back$ } from "./algo"
 
-type _Try<Err$, Str> = [Err$] extends [never]
-  ? Catch<_StrToArr_Back$<Str>>
-  : Err$
+type Tx<
+  CX extends string,
+  Mode extends "IN" | "OUT",
+> = TX<CX, `StrToArr-${Mode}`>
 
-export type StrToArr<Str extends string> = _Try<Validate$<Str>, Str>
-export type StrToArr_Back<Str> = _Try<Validate$<Str>, Str>
+type SafeChain<E, Str> = [E] extends [never]
+  ? _StrToArr_Back$<Str>
+  : E
+
+// -----------------------------------------------------
+
+export type StrToArr<Str extends string> =
+  SafeChain<Validate$<Str>, Str>
+
+export type StrToArr_Back$<
+  Str,
+  CX extends string = "",
+> = EitherValidate<
+  SafeChain<
+    //
+    Validate$<Str, Tx<CX, "IN">>,
+    Str
+  >,
+  Tx<CX, "OUT">
+>
+
+// -----------------------------------------------------
+
+// type X<T> = StrToArr_Back<T> extends any[]
+// ? Monad<StrToArr_Back<T>>
+// :
+
+// type Ch = StrToArr_Back$<number, "test">
+// //   ^?
+// type Z = `${never}`

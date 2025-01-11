@@ -1,21 +1,35 @@
-import type { IsError_ } from "../predicates/isError"
-import type { NewError } from "../types"
+import type {
+  AnyError,
+  NeverError,
+  NewError,
+} from "@errors"
+import type { IsError_ } from "@predicates"
 
-export type ValidateNever$<T> = [T] extends [never]
-  ? NewError<"NeverError", "InValidateNever", T>
+export * from "./validate"
+
+export type ValidateNever$<T> = [T] extends [
+  never,
+]
+  ? NeverError<"ValidateNever$", T>
   : never
 
-export type ValidateAny$<T> = [IsError_<T>] extends [true]
+export type ValidateAny$<T> = [
+  IsError_<T>,
+] extends [true]
   ? T
   : 0 extends 1 & T
-    ? NewError<"AnyError", "InValidateAny", T>
+    ? AnyError<"ValidateAny$", T>
     : never
 
 // export type InValidateUnknown<T> = [T] extends [GenericError] // overlap: any to Error
-export type ValidateUnknown<T> = [IsError_<T>] extends [
-  true,
-] // this is better, no overlap
+export type ValidateUnknown<T> = [
+  IsError_<T>,
+] extends [true] // this is better, no overlap
   ? T
   : [unknown] extends [T]
-    ? NewError<"UnknownError", "InValidateUnknown", T>
+    ? NewError<
+        "UnknownError",
+        "InValidateUnknown",
+        T
+      >
     : never
