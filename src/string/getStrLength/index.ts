@@ -3,7 +3,7 @@ import type { ValidateUsableSting$ } from "../../validators/validateUsableSting"
 import type { _GetStringLength_Back } from "./algo"
 
 type _Try<Err$, Str> = [Err$] extends [never]
-  ? Catch<_GetStringLength_Back<Str>>
+  ? Catch<_GetStringLength_Back<Str>, "TODO:">
   : Err$
 
 export type GetStringLength<Str extends string> = _Try<

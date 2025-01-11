@@ -38,7 +38,8 @@
       "@errors": ["types/errors/index.ts"],
       "@types": ["types/index.ts"],
       "@operators": ["operators/index.ts"],
-      "@validators": ["validators/index.ts"]
+      "@validators": ["validators/index.ts"],
+      "@core": ["core/index.ts"]
     } /* Specify a set of entries that re-map imports to additional lookup locations. */,
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
     // "typeRoots": [],                                  /* Specify multiple folders that act like './node_modules/@types'. */

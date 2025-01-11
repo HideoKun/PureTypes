@@ -1,19 +1,32 @@
-import type { ValidateAll$ } from "../../validators/validateAll";
+import type { Validate$ } from "validators/validate"
 
-export type _IsLiteral<T, Match> = [T] extends [Match]
+export type _IsLiteral<T, Match> = [T] extends [
+  Match,
+]
   ? [Match] extends [T]
     ? false
     : true
-  : false;
+  : false
 
-type Try<Err$, T, Match> = [Err$] extends [never] ? _IsLiteral<T, Match> : Err$;
+type SafeChain<Err$, T, Match> = [Err$] extends [
+  never,
+]
+  ? _IsLiteral<T, Match>
+  : Err$
 
-type PreSet<T$, Match$> = Try<
-  //
-  ValidateAll$<[T$, Match$]>,
+type Configure<T$, Match$> = SafeChain<
+  Validate$<[T$, Match$]>,
   T$,
   Match$
->;
+>
 
-export type IsStringLiteral<T> = PreSet<T, string>;
-export type IsNumberLiteral<T> = PreSet<T, number>;
+// -----------------------------------------------------
+
+export type IsStringLiteral<T> = Configure<
+  T,
+  string
+>
+export type IsNumberLiteral<T> = Configure<
+  T,
+  number
+>

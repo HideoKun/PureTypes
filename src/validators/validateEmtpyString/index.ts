@@ -1,27 +1,30 @@
 import type { FilterError$ } from "../../filters"
-import type { NewError } from "../../types/errors"
+import type { EmptyStringError } from "../../types/errors"
 import type { VALIDATOR_MODES } from "../validate"
 
-type LocValidateEmptyString<
+type _ValidateEmptyString<
   Mode extends VALIDATOR_MODES,
   T,
-  ErrContext extends string = "_ValidateEmptyString",
+  ErrContext extends
+    string = "_ValidateEmptyString",
 > = T extends ""
-  ? NewError<"EmptyStringError", ErrContext, T>
+  ? EmptyStringError<ErrContext, T>
   : Mode extends "chain"
     ? T
     : never
 
-type Try<Mode extends VALIDATOR_MODES, Err$, Str> = [
-  Err$,
-] extends [never]
-  ? LocValidateEmptyString<Mode, Str>
-  : Err$
+type SafeChain<
+  Mode extends VALIDATOR_MODES,
+  E,
+  Str,
+> = [E] extends [never]
+  ? _ValidateEmptyString<Mode, Str>
+  : E
 
 /**
  * @returns Error | never
  */
-export type _ValidateEmptyString$<T> = Try<
+export type ValidateEmptyString$<T> = SafeChain<
   "flat",
   FilterError$<T>,
   T
@@ -30,8 +33,5 @@ export type _ValidateEmptyString$<T> = Try<
 /**
  * @returns Error | T
  */
-export type CH_ValidateEmptyString$<T> = Try<
-  "chain",
-  FilterError$<T>,
-  T
->
+export type EitherValidate_EmptyString$<T> =
+  SafeChain<"chain", FilterError$<T>, T>

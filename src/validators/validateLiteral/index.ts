@@ -8,30 +8,41 @@ export type ValidateLiteral$<
   Match,
 > = [T] extends [Match]
   ? [Match] extends [T]
-    ? NewError<"NonLiteralError", "_ValidateLiteral", T>
+    ? NewError<
+        "NonLiteralError",
+        "_ValidateLiteral",
+        T
+      >
     : Mode extends "chain" // TODO: how about Chain$<Mode,T> or Resolve, Return?
       ? T
       : never
-  : NewError<"MismatchError", "_ValidateLiteral", T>
+  : NewError<
+      "MismatchError",
+      "_ValidateLiteral",
+      T
+    >
 
-type Try<Mode extends VALIDATOR_MODES, Err$, T, Match> = [
-  Err$,
-] extends [never]
+type SafeChain<
+  Mode extends VALIDATOR_MODES,
+  E,
+  T,
+  Match,
+> = [E] extends [never]
   ? ValidateLiteral$<Mode, T, Match>
-  : Err$
+  : E
 
-type ConfigureTry<
+type Configure<
   Mode extends VALIDATOR_MODES,
   T$,
   Match,
-> = Try<Mode, FilterError$<T$>, T$, Match>
+> = SafeChain<Mode, FilterError$<T$>, T$, Match>
 
 // -----------------------------------------------------
 
 /**
  * @returns Error | never
  */
-export type _ValidateStringLiteral<T> = ConfigureTry<
+export type Validate_StringLiteral<T> = Configure<
   "flat",
   T,
   string
@@ -40,7 +51,7 @@ export type _ValidateStringLiteral<T> = ConfigureTry<
 /**
  * @returns Error | never
  */
-export type _ValidateNumberLiteral<T> = ConfigureTry<
+export type Validate_NumberLiteral<T> = Configure<
   "flat",
   T,
   number
@@ -49,35 +60,23 @@ export type _ValidateNumberLiteral<T> = ConfigureTry<
 /**
  * @returns Error | never
  */
-export type _ValidateBooleanLiteral<T> = ConfigureTry<
-  "flat",
-  T,
-  boolean
->
+export type Validate_BooleanLiteral<T> =
+  Configure<"flat", T, boolean>
 
 /**
  * @returns Error | T
  */
-export type CH_ValidateStringLiteral<T> = ConfigureTry<
-  "chain",
-  T,
-  string
->
+export type EitherValidate_StringLiteral<T> =
+  Configure<"chain", T, string>
 
 /**
  * @returns Error | T
  */
-export type CH_ValidateNumberLiteral<T> = ConfigureTry<
-  "chain",
-  T,
-  number
->
+export type EitherValidate_NumberLiteral<T> =
+  Configure<"chain", T, number>
 
 /**
  * @returns Error | T
  */
-export type CH_ValidateBooleanLiteral<T> = ConfigureTry<
-  "chain",
-  T,
-  boolean
->
+export type EitherValidate_BooleanLiteral<T> =
+  Configure<"chain", T, boolean>
