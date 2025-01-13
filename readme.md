@@ -22,6 +22,37 @@
 - allow user to grow via helpful api
 - edu first
 
+## Issues/ Plans
+
+### Cleanup
+
+- [ ] algo dir: flat, single files, naive ts with full front validation
+- [ ] import paths for func categories (types, operators, validators, predicates, assertions, casts, internals etc)
+- [ ] prettier ignore for complex flow
+- [ ] composability over branching
+  - [ ] testing
+  - [ ] debug
+  - [ ] understanding
+  - [ ] tap (ramda like -> output as debug error in long chains)
+- [ ] all func are back validated
+- [ ] errors to never? (flatten)
+- [ ] js docs for input, output and urls to funcs
+- [ ] multi import if possible
+- [ ] better context for long chains
+- [ ] convention: $, \_,
+- [x] validate and validateAll cleanup
+- just : value, context
+- whimsical maps for algs
+
+### Unions
+
+- [ ] union focus/ tests
+- [ ] union as a config
+
+### Final
+
+- [ ] documentation
+
 ## Architecture
 
 ### Core Ideas
@@ -30,7 +61,7 @@
 - `strict` is not enough
 - `OpenType` (`any`, `unknown`, `never`) exclusion
 - **use pre-computed types** (TailWind style) - { "declaration": true,"emitDeclarationOnly": true}
-- **ERROR AS A FEATURE**: use it to communicate with user
+- **ERROR AS A FEATURE**: use it to communicate with user (msg + stack trace + url)
 - module as 'never' boundary -> solve all never related issues at module level
 
 ### Other Ideas
@@ -132,7 +163,6 @@ module/
 
 ```ts
 type BOOL
-// TODO: what about func args?
 ```
 
 #### Throwable Type Functions (safe/ unsafe)
@@ -169,6 +199,19 @@ type _ReverseString_Back // back validation, non-throwable,  might returns never
 - always use Safe/Close front func wrapper (ex `Func<'x'>`) and UnSafe/Open main func (ex `Func<T, '', []>`) -> Partial Type Application
 - when logic is messy extract it to new named func, avoid [this](https://github.com/sindresorhus/type-fest/blob/main/source/paths.d.ts#L123)
 - if there is to many args in one func, try to use props object to
+- every exported function needs jsdoc, it is not required for local funcs
+- always preserve type context in naming arg
+- error as middle layer solution
+- no more front validation + jsdocs for mouse usage
+- how to unplug from this lib? -------> pure-types/safe + pure-types/unsafe
+- how to pass value and prev stack trace from func pure-types/monad
+- amount of validators should be equal to amount of predicates (v -> p balans)
+- internal lib standards should be published publicly
+
+\_algo
+returnsNever$
+\_localType
+E - errors
 
 Bad - non meaningful type names
 
@@ -186,6 +229,10 @@ type Test<
   Match extends string
 >
 ```
+
+### Terms
+
+- context -> upstream context for stack tracing
 
 ### Files
 
@@ -216,7 +263,7 @@ _Helpers/Utils
 
 ### Refs
 
-TODO: String Methods from:
+String Methods:
 
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split
 - https://ramdajs.com/docs/#toString
