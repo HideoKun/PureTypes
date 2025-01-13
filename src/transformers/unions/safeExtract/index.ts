@@ -1,4 +1,10 @@
+export type SafeExtract<
+  Match,
+  T extends Match,
+> = Match extends T ? Match : never
 
-export type SafeExtract<U, M extends U> = U extends M ? U : never;
-
-type test = SafeExtract<"z" | "b" | "c" | "d", "z">;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+type test = SafeExtract<
+  "a" | "b" | "c" | "d",
+  "a"
+>

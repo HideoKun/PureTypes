@@ -77,3 +77,5 @@ export type MismatchError<Context extends string, Value> = NewError<"MismatchErr
 export type NonLiteralError<Context extends string, Value> = NewError<"NonLiteralError", Context, Value>
 // prettier-ignore
 export type EmptyStringError<Context extends string, Value> = NewError<"EmptyStringError", Context, Value>
+// prettier-ignore
+export type OpenTypeError<Context extends string, Value> = NewError<"OpenTypeError", Context, Value>

@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import type { IsError_ } from "@algo"
+import type { If$ } from "@core"
 import type {
   AnyError,
   NeverError,
   UnknownError,
 } from "@errors"
 import type { TX } from "@operators"
-import type { IsError_ } from "@predicates"
 
 type Name = "_Validate$"
 
@@ -36,9 +37,7 @@ type _Validate$<
         ? _ValidateAll$<T>
         : IsChainable extends "either"
           ? T
-          : IsError_<T> extends true
-            ? T
-            : never
+          : If$<IsError_<T>, true, T> // TODO: box mode? -> wrong if$ placement?
 
 // -----------------------------------------------------
 

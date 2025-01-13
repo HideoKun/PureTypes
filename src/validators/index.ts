@@ -1,11 +1,13 @@
+import type { IsError_ } from "@algo"
 import type {
   AnyError,
   NeverError,
   NewError,
 } from "@errors"
-import type { IsError_ } from "@predicates"
 
 export * from "./validate"
+
+// TODO: all below is unused, remove?
 
 export type ValidateNever$<T> = [T] extends [
   never,

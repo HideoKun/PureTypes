@@ -1,7 +1,8 @@
+import type { If$ } from "@core"
+import type { NewError } from "@errors"
 import type { TX } from "@operators"
-import type { FilterError$ } from "../../filters"
-import type { NewError } from "../../types/errors"
-import type { VALIDATOR_MODES } from "../validate"
+import type { VALIDATOR_MODES } from "@validators"
+import type { FilterError$ } from "filters"
 
 type _ValidateType<
   CX extends string,
@@ -9,9 +10,7 @@ type _ValidateType<
   T,
   Match,
 > = [T] extends [Match]
-  ? Mode extends "either"
-    ? T
-    : never
+  ? If$<Mode, "either", T>
   : NewError<
       "MismatchError",
       TX<CX, "_ValidateType">,

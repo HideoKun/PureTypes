@@ -33,8 +33,8 @@ export type StrToArr_Back$<
 
 // -----------------------------------------------------
 
-// type X<T> = StrToArr_Back<T> extends any[]
-// ? Monad<StrToArr_Back<T>>
+// type X<T> = _StrToArr_Back$<T> extends any[]
+// ? Monad<_StrToArr_Back$<T>>
 // :
 
 // type Ch = StrToArr_Back$<number, "test">

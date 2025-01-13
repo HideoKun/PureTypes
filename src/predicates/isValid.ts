@@ -1,7 +1,11 @@
-import type { IsOpenType } from "./is"
-import type { IsError_ } from "./isError"
+import type { IsError_, IsOpenType } from "@algo"
 
-export type IsValid<T> = [IsOpenType<T>] extends [true]
+// TODO: unused, remove?
+// should we support error validation here?
+// parallel to Validate -> IsValid
+export type IsValid<T> = [IsOpenType<T>] extends [
+  true,
+]
   ? false
   : [IsError_<T>] extends [true]
     ? false

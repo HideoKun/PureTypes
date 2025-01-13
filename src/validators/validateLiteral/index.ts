@@ -29,7 +29,13 @@ type Configure<
   Mode extends VALIDATOR_MODES,
   T$,
   Match,
-> = SafeChain<Mode, FilterError$<T$>, T$, Match>
+> = SafeChain<
+  //
+  Mode,
+  FilterError$<T$>,
+  T$,
+  Match
+>
 
 // -----------------------------------------------------
 

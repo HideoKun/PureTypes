@@ -1,7 +1,5 @@
-export * from "./is"
 export * from "./isArr"
 export * from "./isEqual"
-export * from "./isError"
 export * from "./isHomogenic"
 export * from "./isLiteral"
 export * from "./isValid"

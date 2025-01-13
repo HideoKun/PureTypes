@@ -1,10 +1,12 @@
-import type { IsOpenType } from "../../predicates/is";
-import type { NewError } from "../../types";
+import type { IsOpenType } from "@algo"
+import type { OpenTypeError } from "@errors"
 
-declare const __brand: unique symbol;
+declare const __brand: unique symbol
 
-type $Brand<B> = { [__brand]: B };
+type $Brand<B> = { [__brand]: B }
 
-export type Branded<T, B extends string> = [IsOpenType<T>] extends [true]
-  ? NewError<"OpenTypeError", "Validate", T>
-  : T & $Brand<B>;
+export type Branded<T, B extends string> = [
+  IsOpenType<T>,
+] extends [true]
+  ? OpenTypeError<"Validate", T>
+  : T & $Brand<B>

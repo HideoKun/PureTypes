@@ -1,17 +1,15 @@
-import type { FilterError$ } from "../../filters"
-import type { EmptyStringError } from "../../types/errors"
-import type { VALIDATOR_MODES } from "../validate"
+import type { If$ } from "@core"
+import type { EmptyStringError } from "@errors"
+import type { VALIDATOR_MODES } from "@validators"
+import type { FilterError$ } from "filters"
 
 type _ValidateEmptyString<
   Mode extends VALIDATOR_MODES,
   T,
-  ErrContext extends
-    string = "_ValidateEmptyString",
+  CX extends string = "_ValidateEmptyString",
 > = T extends ""
-  ? EmptyStringError<ErrContext, T>
-  : Mode extends "either"
-    ? T
-    : never
+  ? EmptyStringError<CX, T> // TODO: TX
+  : If$<Mode, "either", T>
 
 type SafeChain<
   Mode extends VALIDATOR_MODES,
@@ -34,4 +32,9 @@ export type ValidateEmptyString$<T> = SafeChain<
  * @returns Error | T
  */
 export type EitherValidate_EmptyString$<T> =
-  SafeChain<"either", FilterError$<T>, T>
+  SafeChain<
+    //
+    "either",
+    FilterError$<T>,
+    T
+  >

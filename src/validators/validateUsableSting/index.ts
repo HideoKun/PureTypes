@@ -1,7 +1,7 @@
+import type { EitherValidate } from "validators/validate"
+import type { EitherValidate_EmptyString$ } from "validators/validateEmtpyString"
+import type { EitherValidate_StringLiteral } from "validators/validateLiteral"
 import type { FilterError$ } from "../../filters"
-import type { EitherValidate } from "../validate"
-import type { EitherValidate_EmptyString$ } from "../validateEmtpyString"
-import type { EitherValidate_StringLiteral } from "../validateLiteral"
 
 // prettier-ignore
 type Check<T> =
@@ -22,3 +22,5 @@ export type ValidateUsableSting$<T> =
  */
 export type CH_ValidateUsableSting$<T> =
   FilterError$<Check<T>>
+
+// type X = ValidateUsableSting$<never>

@@ -1,5 +1,7 @@
 // TODO: today
 export type SafeExclude$<
-  T,
-  Match extends T, //TODO: is it CTA or not?
-> = T extends Match ? never : T
+  Match,
+  T extends Match, //TODO: is it CTA or not?
+> = Match extends T ? never : Match
+
+// swap

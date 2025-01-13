@@ -1,4 +1,4 @@
-import type { IsOpenType } from "@predicates"
+import type { IsOpenType } from "@algo"
 
 export type $SafeElse<A, B> = [
   IsOpenType<A>,

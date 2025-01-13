@@ -1,13 +1,11 @@
+import type { IsOpenType } from "@algo"
 import type { TX } from "@operators"
-import type { EitherValidate } from "../../validators/validate"
-import type { ValidateType$ } from "../../validators/validateType"
-import type { IsOpenType } from "../is"
+import type { EitherValidate } from "@validators"
+import type { ValidateType$ } from "validators/validateType"
 import type { BOOL, PRED_MODE } from "./config"
 
-// build predicates from validators
-
 // TODO: chain validate ALL!
-type SafeChain<
+type ConfiguredValidation<
   T,
   Match,
   CX extends string,
@@ -17,25 +15,39 @@ type SafeChain<
   Match
 >
 
-export type Predicate<
+/*
+
+Args -> (Args, Context))
+
+*/
+// INFO: got corresponding ValidateType
+export type IsMatchedType<
   T,
   Match,
   CX extends string,
-  MODE extends PRED_MODE,
+  MODE extends PRED_MODE, // TODO: default should be debug, exported to algs with "BOOL"
 > = [MODE] extends [BOOL]
   ? IsOpenType<
-      SafeChain<T, Match, TX<CX, "Predicate">>
+      ConfiguredValidation<
+        T,
+        Match,
+        TX<CX, "Predicate">
+      >
     >
-  : SafeChain<T, Match, TX<CX, "Predicate">>
+  : ConfiguredValidation<
+      T,
+      Match,
+      TX<CX, "Predicate">
+    >
 
 // ----------------------------------------------
 
 //prettier-ignore
-export type IsString<T, MODE extends PRED_MODE = BOOL> = Predicate<T, string, "IsString", MODE>
+export type IsString<T, MODE extends PRED_MODE = BOOL> = IsMatchedType<T, string, "IsString", MODE>
 //prettier-ignore
-export type IsNumber<T, MODE extends PRED_MODE = BOOL> = Predicate<T, number, "IsNumber", MODE>
+export type IsNumber<T, MODE extends PRED_MODE = BOOL> = IsMatchedType<T, number, "IsNumber", MODE>
 //prettier-ignore
-export type IsBoolean<T, MODE extends PRED_MODE = BOOL> = Predicate<T, boolean, "IsBoolean", MODE>
+export type IsBoolean<T, MODE extends PRED_MODE = BOOL> = IsMatchedType<T, boolean, "IsBoolean", MODE>
 
 // ----------------------------------------------
 

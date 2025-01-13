@@ -34,8 +34,9 @@
     "moduleResolution": "node" /* Specify how TypeScript looks up a file from a given module specifier. */,
     "baseUrl": "src" /* Specify the base directory to resolve non-relative module names. */,
     "paths": {
+      "@algo": ["algo/index.ts"],
+      "@errors": ["errors/index.ts"],
       "@predicates": ["predicates/index.ts"],
-      "@errors": ["types/errors/index.ts"],
       "@types": ["types/index.ts"],
       "@operators": ["operators/index.ts"],
       "@validators": ["validators/index.ts"],
