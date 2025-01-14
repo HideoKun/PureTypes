@@ -1,3 +1,5 @@
+import type { TX } from "@operators"
+
 type _Errors = {
   // input --------------------------------
   OpenTypeError: {
@@ -66,16 +68,16 @@ export type NonErrorObj = object & {
 // -----------------------
 
 // prettier-ignore
-export type NeverError<Context extends string, Value> = NewError<"NeverError", Context, Value>
+export type NeverError<CX extends string, T> = NewError<"NeverError", TX<CX, "NeverError">, T>
 // prettier-ignore
-export type AnyError<Context extends string, Value> = NewError<"AnyError", Context, Value>
+export type AnyError<CX extends string, T> = NewError<"AnyError", TX<CX, "AnyError">, T>
 // prettier-ignore
-export type UnknownError<Context extends string, Value> = NewError<"UnknownError", Context, Value>
+export type UnknownError<CX extends string, T> = NewError<"UnknownError", TX<CX, "UnknownError">, T>
 // prettier-ignore
-export type MismatchError<Context extends string, Value> = NewError<"MismatchError", Context, Value>
+export type MismatchError<CX extends string, T> = NewError<"MismatchError", TX<CX, "MismatchError">, T>
 // prettier-ignore
-export type NonLiteralError<Context extends string, Value> = NewError<"NonLiteralError", Context, Value>
+export type NonLiteralError<CX extends string, T> = NewError<"NonLiteralError", TX<CX, "NonLiteralError">, T>
 // prettier-ignore
-export type EmptyStringError<Context extends string, Value> = NewError<"EmptyStringError", Context, Value>
+export type EmptyStringError<CX extends string, T> = NewError<"EmptyStringError", TX<CX, "EmptyStringError">, T>
 // prettier-ignore
-export type OpenTypeError<Context extends string, Value> = NewError<"OpenTypeError", Context, Value>
+export type OpenTypeError<CX extends string, T> = NewError<"OpenTypeError", TX<CX, "OpenTypeError">, T>

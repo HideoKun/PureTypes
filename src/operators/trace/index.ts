@@ -1,7 +1,7 @@
 type Trace<
   A extends string,
   B extends string,
-> = `${A}-->${B}`
+> = `${A}->${B}`
 
 /**
  * !!! UNSAFE !!!

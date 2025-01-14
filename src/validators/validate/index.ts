@@ -1,43 +1,62 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { IsError_ } from "@algo"
-import type { If$ } from "@core"
 import type {
   AnyError,
   NeverError,
   UnknownError,
 } from "@errors"
 import type { TX } from "@operators"
+import type { VALIDATOR_MODES } from "@validators"
 
-type Name = "_Validate$"
-
-export type VALIDATOR_MODES = "never" | "either"
-
-type _ValidateAll$<
+type ValidateArr<
   Data extends unknown[],
-  Acc = never,
+  Acc,
+  CX extends string,
+  Index extends any[] = [],
 > = [Data] extends [[infer First, ...infer Rest]]
-  ? _ValidateAll$<
+  ? ValidateArr<
       Rest,
-      Acc | _Validate$<First, "never">
+      | Acc
+      | CoreValidate$<
+          First,
+          "never",
+          TX<CX, `[${Index["length"]}]`>
+        >,
+      CX,
+      [...Index, any]
     >
   : Acc
 
-type _Validate$<
+type Test = Validate$<
+  [1, "a", any, true, never, false],
+  "Test"
+>
+
+type Name = "CoreValidate$"
+
+type CoreValidate$<
   T,
-  IsChainable extends VALIDATOR_MODES,
-  CX extends string = "",
+  EitherMode extends VALIDATOR_MODES,
+  CX extends string,
 > = [T] extends [never]
   ? NeverError<TX<CX, Name>, T>
   : 0 extends 1 & T
     ? AnyError<TX<CX, Name>, T>
     : [unknown] extends [T]
-      ? UnknownError<TX<CX, Name>, T>
+      ? //prettier-ignore
+        UnknownError<TX<CX, Name>, T>
       : [T] extends [any[]]
-        ? _ValidateAll$<T>
-        : IsChainable extends "either"
-          ? T
-          : If$<IsError_<T>, true, T> // TODO: box mode? -> wrong if$ placement?
+        ? ValidateArr<
+            T,
+            never,
+            TX<CX, Name, "ValidateArr">
+          >
+        : IsError_<T> extends true
+          ? T // error bypass
+          : EitherMode extends "either"
+            ? T
+            : never
 
 // -----------------------------------------------------
 
@@ -47,7 +66,7 @@ type _Validate$<
 export type Validate$<
   T,
   CX extends string = "",
-> = _Validate$<
+> = CoreValidate$<
   //
   T,
   "never",
@@ -60,7 +79,7 @@ export type Validate$<
 export type EitherValidate<
   T,
   CX extends string = "",
-> = _Validate$<
+> = CoreValidate$<
   T,
   "either",
   TX<CX, "EitherValidate">
@@ -69,17 +88,16 @@ export type EitherValidate<
 
 // -----------------------------------------------------
 
-type A = Validate$<never, "test">
-type B = Validate$<any, "test">
-type C = Validate$<unknown, "test">
-type E = Validate$<never[], "test">
+type A = Validate$<never, "Test">
+type B = Validate$<any, "Test">
+type C = Validate$<unknown, "Test">
+type E = Validate$<never[], "Test">
 //   ^?
-type F = Validate$<[1, "ś", any], "test">
 //   ^?
 
 //   ^?
 // type FF = ValidateAll$<[any]>
 //   ^?
 
-type Z = IsError_<F>
+// type Z = IsError_<F>
 //   ^?
